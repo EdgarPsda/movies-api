@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "6d4e152c-061d-49a0-beda-0c28b06f8e08",
+		"name": "Movie Picture API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7036251"
+	},
+	"item": [
+		{
+			"name": "Get All Movie Pictures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/movie-pictures",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movie-pictures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All MP by Year",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/movie-pictures/release-year/2020",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movie-pictures",
+						"release-year",
+						"2020"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Grouped Movie Pictures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/movie-pictures/grouped-by-release-year",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movie-pictures",
+						"grouped-by-release-year"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vote UP or Down",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/movie-pictures/vote-up/8/up",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"movie-pictures",
+						"vote-up",
+						"8",
+						"up"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
