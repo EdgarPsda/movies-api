@@ -8,4 +8,14 @@ import lombok.Data;
 public class ErrorDto {
     private String code;
     private String message;
+
+    // empty constructor
+    public ErrorDto() {
+    }
+
+    // constructor with parameters
+    public ErrorDto(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }
