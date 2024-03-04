@@ -18,6 +18,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class MoviePictureServiceTest {
@@ -107,5 +110,34 @@ public class MoviePictureServiceTest {
         }, "Expected InvalidVoteException to be thrown");
         verify(moviePictureRepository, times(1)).findById(id);
         verify(moviePictureRepository, never()).save(any());
+    }
+
+    @Test
+    public void testFindAllWithMoviePicturesFound() {
+        // Arrange
+        List<MoviePicture> moviePictures = new ArrayList<>();
+        moviePictures.add(new MoviePicture());
+        moviePictures.add(new MoviePicture());
+
+        when(moviePictureRepository.findAll()).thenReturn(moviePictures);
+
+        // Act
+        List<MoviePicture> result = moviePictureService.findAll();
+
+        // Assert
+        assertEquals(2, result.size());
+        verify(moviePictureRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testFindAllWithNoMoviePicturesFound() {
+        // Arrange
+        when(moviePictureRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // Act and Assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            moviePictureService.findAll();
+        }, "Expected ResourceNotFoundException to be thrown");
+        verify(moviePictureRepository, times(1)).findAll();
     }
 }
