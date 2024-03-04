@@ -21,7 +21,11 @@ public class MoviePictureService {
 
     // List all MoviePictures
     public List<MoviePicture> findAll() {
-        return moviePictureRepository.findAll();
+        List<MoviePicture> result = moviePictureRepository.findAll();
+        if (result.isEmpty()) {
+            throw new ResourceNotFoundException("No movie pictures found", "404", HttpStatus.NOT_FOUND);
+        }
+        return result;
     }
 
     // List all movie pictures of a particular release year
