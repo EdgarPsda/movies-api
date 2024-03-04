@@ -48,7 +48,6 @@ public class ErrorDtoTest {
         assertEquals(message, errorDto.getMessage());
     }
 
-    // Test equals and hashCode
     @Test
     public void testEquals() {
         // Arrange
@@ -69,7 +68,6 @@ public class ErrorDtoTest {
         assertEquals(errorDto1.hashCode(), errorDto2.hashCode());
     }
 
-    // Test toString
     @Test
     public void testToString() {
         // Arrange
@@ -82,7 +80,6 @@ public class ErrorDtoTest {
         assertEquals("ErrorDto(code=ERROR_CODE, message=Error message)", result);
     }
 
-    // Test no args constructor
     @Test
     public void testNoArgsConstructor() {
         // Act
@@ -93,7 +90,6 @@ public class ErrorDtoTest {
         assertEquals(null, errorDto.getMessage());
     }
 
-    // test setter and getter
     @Test
     public void testSetterAndGetter() {
         // Arrange
@@ -108,6 +104,32 @@ public class ErrorDtoTest {
         // Assert
         assertEquals(code, errorDto.getCode());
         assertEquals(message, errorDto.getMessage());
+    }
+
+    @Test
+    public void testAllArgsConstructor() {
+        // Arrange
+        String code = "ERROR_CODE";
+        String message = "Error message";
+
+        // Act
+        ErrorDto errorDto = new ErrorDto(code, message);
+
+        // Assert
+        assertEquals(code, errorDto.getCode());
+        assertEquals(message, errorDto.getMessage());
+    }
+
+    @Test
+    public void testEqualsMethod() {
+        // Arrange
+        String code = "ERROR_CODE";
+        String message = "Error message";
+        ErrorDto errorDto1 = new ErrorDto(code, message);
+        ErrorDto errorDto2 = new ErrorDto(code, message);
+
+        // Act and Assert
+        assertEquals(errorDto1, errorDto2);
     }
 
 }

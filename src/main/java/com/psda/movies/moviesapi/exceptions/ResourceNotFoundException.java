@@ -15,4 +15,10 @@ public class ResourceNotFoundException extends RuntimeException {
         this.status = status;
     }
 
+    public ResourceNotFoundException(String code, HttpStatus status) {
+        super(code);
+        this.code = code;
+        this.status = status;
+    }
+
 }
