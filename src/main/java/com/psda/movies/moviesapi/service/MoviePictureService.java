@@ -41,6 +41,11 @@ public class MoviePictureService {
     // List all movie pictures grouped by release year
     public Map<Integer, List<MoviePicture>> findAllGroupedByReleaseYear() {
         List<MoviePicture> moviePictures = moviePictureRepository.findAllOrderByReleaseYearDescAndFavoritesCountDesc();
+
+        if (moviePictures.isEmpty()) {
+            throw new ResourceNotFoundException("No movie pictures found", "404", HttpStatus.NOT_FOUND);
+        }
+
         return moviePictures.stream().collect(Collectors.groupingBy(MoviePicture::getReleaseYear));
     }
 

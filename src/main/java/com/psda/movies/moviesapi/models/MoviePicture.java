@@ -35,4 +35,14 @@ public class MoviePicture {
     @NotNull(message = "Release year is required")
     private Integer releaseYear;
 
+    public MoviePicture() {
+    }
+
+    public MoviePicture(Long movieId, String url, Integer favoritesCount, Integer releaseYear) {
+        this.url = url;
+        this.favoritesCount = favoritesCount;
+        this.movieId = movieId;
+        this.releaseYear = releaseYear;
+    }
+
 }

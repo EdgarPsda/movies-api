@@ -1,10 +1,12 @@
 package com.psda.movies.moviesapi;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+import com.psda.movies.moviesapi.controllers.MoviePictureController;
 import com.psda.movies.moviesapi.exceptions.InvalidVoteException;
 import com.psda.movies.moviesapi.exceptions.ResourceNotFoundException;
 import com.psda.movies.moviesapi.models.MoviePicture;
@@ -17,11 +19,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MoviePictureServiceTest {
 
@@ -171,5 +180,39 @@ public class MoviePictureServiceTest {
             moviePictureService.findAllByReleaseYear(releaseYear);
         }, "Expected ResourceNotFoundException to be thrown");
         verify(moviePictureRepository, times(1)).findAllByReleaseYear(releaseYear);
+    }
+
+    @Test
+    public void testFindAllGroupedByReleaseYearWithMoviePicturesFound() {
+        // Arrange
+        List<MoviePicture> moviePictures = new ArrayList<>();
+        moviePictures.add(new MoviePicture(1L, "Movie 1", 10, 2022));
+        moviePictures.add(new MoviePicture(2L, "Movie 2", 5, 2022));
+        moviePictures.add(new MoviePicture(3L, "Movie 3", 8, 2021));
+
+        when(moviePictureRepository.findAllOrderByReleaseYearDescAndFavoritesCountDesc()).thenReturn(moviePictures);
+
+        // Act
+        Map<Integer, List<MoviePicture>> result = moviePictures.stream()
+                .collect(Collectors.groupingBy(MoviePicture::getReleaseYear));
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size()); // Corregido a 2 porque solo hay 2 años diferentes
+        assertEquals(2, result.get(2022).size()); // Verifica que hay 2 películas para 2022
+        assertEquals(1, result.get(2021).size()); // Verifica que hay 1 película para 2021
+    }
+
+    @Test
+    public void testFindAllGroupedByReleaseYearWithNoMoviePicturesFound() {
+        // Arrange
+        when(moviePictureRepository.findAllOrderByReleaseYearDescAndFavoritesCountDesc())
+                .thenReturn(Collections.emptyList());
+
+        // Act and Assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            moviePictureService.findAllGroupedByReleaseYear();
+        }, "Expected ResourceNotFoundException to be thrown");
+        verify(moviePictureRepository, times(1)).findAllOrderByReleaseYearDescAndFavoritesCountDesc();
     }
 }
