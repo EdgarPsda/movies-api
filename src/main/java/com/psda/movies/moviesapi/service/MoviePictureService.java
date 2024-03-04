@@ -30,7 +30,12 @@ public class MoviePictureService {
 
     // List all movie pictures of a particular release year
     public List<MoviePicture> findAllByReleaseYear(Integer releaseYear) {
-        return moviePictureRepository.findAllByReleaseYear(releaseYear);
+        List<MoviePicture> result = moviePictureRepository.findAllByReleaseYear(releaseYear);
+        if (result.isEmpty()) {
+            throw new ResourceNotFoundException("No movie pictures found for release year: " + releaseYear, "404",
+                    HttpStatus.NOT_FOUND);
+        }
+        return result;
     }
 
     // List all movie pictures grouped by release year

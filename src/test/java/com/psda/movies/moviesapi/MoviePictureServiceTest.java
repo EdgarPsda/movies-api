@@ -140,4 +140,36 @@ public class MoviePictureServiceTest {
         }, "Expected ResourceNotFoundException to be thrown");
         verify(moviePictureRepository, times(1)).findAll();
     }
+
+    @Test
+    public void testFindAllByReleaseYearWithMoviePicturesFound() {
+        // Arrange
+        Integer releaseYear = 2022;
+        List<MoviePicture> moviePictures = new ArrayList<>();
+        moviePictures.add(new MoviePicture());
+        moviePictures.add(new MoviePicture());
+
+        when(moviePictureRepository.findAllByReleaseYear(releaseYear)).thenReturn(moviePictures);
+
+        // Act
+        List<MoviePicture> result = moviePictureService.findAllByReleaseYear(releaseYear);
+
+        // Assert
+        assertEquals(2, result.size());
+        verify(moviePictureRepository, times(1)).findAllByReleaseYear(releaseYear);
+    }
+
+    @Test
+    public void testFindAllByReleaseYearWithNoMoviePicturesFound() {
+        // Arrange
+        Integer releaseYear = 2022;
+
+        when(moviePictureRepository.findAllByReleaseYear(releaseYear)).thenReturn(Collections.emptyList());
+
+        // Act and Assert
+        assertThrows(ResourceNotFoundException.class, () -> {
+            moviePictureService.findAllByReleaseYear(releaseYear);
+        }, "Expected ResourceNotFoundException to be thrown");
+        verify(moviePictureRepository, times(1)).findAllByReleaseYear(releaseYear);
+    }
 }
