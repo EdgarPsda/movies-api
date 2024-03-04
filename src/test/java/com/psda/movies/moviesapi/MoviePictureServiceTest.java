@@ -1,12 +1,10 @@
 package com.psda.movies.moviesapi;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-import com.psda.movies.moviesapi.controllers.MoviePictureController;
 import com.psda.movies.moviesapi.exceptions.InvalidVoteException;
 import com.psda.movies.moviesapi.exceptions.ResourceNotFoundException;
 import com.psda.movies.moviesapi.models.MoviePicture;
@@ -18,18 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MoviePictureServiceTest {
