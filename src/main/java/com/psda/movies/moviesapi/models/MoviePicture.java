@@ -24,7 +24,7 @@ public class MoviePicture {
     private String url;
 
     @Column(name = "favorites_count")
-    @NotNull(message = "Description is required")
+    @NotNull(message = "Favorites Count is required")
     private Integer favoritesCount;
 
     @Column(name = "movie_id")
